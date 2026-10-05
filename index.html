@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123b46">
+  <meta name="description" content="Uma história curta sobre escuta, convivência e participação em um trabalho em grupo.">
+  <title>Antes de Julgar</title>
+  <link rel="icon" href="data:,">
+  <script>
+    (function () {
+      var failed = false;
+      var initialized = false;
+      var loaded = false;
+      var errorMessage = '';
+      var timeout = setTimeout(function () {
+        fail('O carregamento demorou demais. Confira a conexão e tente novamente.');
+      }, 15000);
+
+      function renderError() {
+        if (!failed) return;
+        var loading = document.getElementById('loading-message');
+        var retry = document.getElementById('retry-load');
+        if (loading) loading.textContent = errorMessage;
+        if (retry) retry.hidden = false;
+      }
+
+      function fail(message) {
+        if (window.gameReady) return;
+        failed = true;
+        errorMessage = message;
+        clearTimeout(timeout);
+        renderError();
+      }
+
+      function release() {
+        if (failed || !loaded || !initialized) return;
+        var style = document.getElementById('game-style');
+        var art = document.getElementById('classroom-art');
+        if (!style || !style.sheet || !art || !art.complete || !art.naturalWidth) {
+          fail('Não foi possível carregar todos os recursos do jogo. Confira a conexão e tente novamente.');
+          return;
+        }
+        clearTimeout(timeout);
+        window.gameReady = true;
+        document.getElementById('loading').hidden = true;
+        document.getElementById('game').hidden = false;
+        document.getElementById('start-button').disabled = false;
+      }
+
+      window.gameBootstrap = { initialized: function () { initialized = true; release(); } };
+      window.addEventListener('error', function () {
+        fail('Não foi possível carregar todos os recursos do jogo. Confira a conexão e tente novamente.');
+      }, true);
+      window.addEventListener('load', function () {
+        loaded = true;
+        if (!initialized) fail('Não foi possível preparar o jogo. Confira a conexão e tente novamente.');
+        else release();
+      });
+      document.addEventListener('DOMContentLoaded', renderError);
+    }());
+  </script>
+  <style id="game-style">
+:root{color-scheme:light;--ink:#193e46;--deep:#183e47;--teal:#326d72;--cream:#f8efd9;--paper:#fffaf0;--terra:#ad624c;--gold:#f1c578;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;line-height:1.5}
+*{box-sizing:border-box}html{background:var(--deep)}body{margin:0;min-width:320px;color:var(--ink);background:linear-gradient(165deg,#285961,#163b45 60%)}button{font:inherit;cursor:pointer}button:disabled{cursor:not-allowed;opacity:.52}button:focus-visible,h1:focus-visible,h2:focus-visible,h3:focus-visible{outline:3px solid #f5bf55;outline-offset:3px}[hidden]{display:none!important}h1,h2,h3,p{overflow-wrap:anywhere}h1,h2,h3{line-height:1.15}
+.app-shell{width:min(100%,800px);min-height:100dvh;margin:auto;padding:calc(10px + env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}.site-header{display:flex;align-items:center;gap:8px;min-height:32px;color:#fff4dc;font-size:.72rem;font-weight:800;letter-spacing:.09em}.brand-mark{display:grid;grid-template-columns:repeat(2,7px);grid-template-rows:repeat(2,7px);gap:2px;transform:rotate(-12deg)}.brand-mark span:nth-child(1),.brand-mark span:nth-child(4){background:var(--gold)}.brand-mark span:nth-child(2){background:#94beb2}.brand-mark span:nth-child(3){background:#c88162}.header-tag{margin-left:auto;color:#c6dbd2;font-size:.7rem;font-weight:500;letter-spacing:0}.site-footer{padding:15px 0 0;text-align:center;color:#c8d9d1;font-size:.72rem}.loading-card{min-height:70dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}.loading-pixels{display:flex;gap:6px}.loading-pixels i{width:14px;height:14px;background:var(--gold)}.loading-pixels i:nth-child(2){background:#98c6b6}.loading-pixels i:nth-child(3){background:#c88162}
+.screen{margin-top:12px}.start-screen{display:grid;grid-template-columns:43% 57%;background:var(--cream);border:3px solid #d9b77c;box-shadow:5px 5px 0 #102e38;overflow:hidden}.hero-art{position:relative;min-height:390px;overflow:hidden;background:linear-gradient(#d0e5d7 0 54%,#b89169 54% 58%,#d7b488 58%);image-rendering:pixelated}.hero-art:before{content:"";position:absolute;inset:58% 0 0;background:repeating-linear-gradient(0deg,transparent 0 26px,#c8a476 26px 28px),repeating-linear-gradient(90deg,transparent 0 44px,#c8a476 44px 46px)}.hero-window{position:absolute;top:13%;left:12%;width:32%;height:32%;border:9px solid #fff1d4;background:linear-gradient(90deg,transparent 45%,#fff1d4 45% 55%,transparent 55%),linear-gradient(#9bcacd 60%,#b0ceb0 60%);box-shadow:5px 5px 0 #7c9f91}.hero-board{position:absolute;top:12%;right:8%;width:37%;height:35%;border:8px solid #b7885e;background:#326b6c;box-shadow:5px 5px 0 #81968a}.hero-board:after{content:"";position:absolute;top:25%;left:15%;width:65%;height:4px;background:#cee3c8;box-shadow:0 17px #cee3c8,0 34px #cee3c8}.hero-desk{position:absolute;left:15%;right:12%;bottom:21%;height:37px;background:#e5b47c;border:6px solid #956847;box-shadow:0 22px 0 -8px #5b6e70}.start-content{align-self:center;padding:clamp(22px,4vw,44px)}.eyebrow{margin:0 0 10px;color:#955946;font-size:.7rem;font-weight:850;letter-spacing:.12em}h1{margin:0;color:var(--deep);font-size:clamp(2.8rem,7vw,5rem);letter-spacing:-.06em}h1 em{font-style:normal;color:#ab6249}.subtitle{margin:7px 0 28px;font-size:1.16rem;font-weight:750}.microcopy{margin:16px 0 0;color:#526965;font-size:.82rem}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:10px 17px;border:2px solid var(--deep);border-radius:4px;font-weight:750;line-height:1.25;text-align:center}.button-primary{color:#fffdf4;background:var(--deep);box-shadow:3px 3px 0 #d8aa69}.button-primary:hover:not(:disabled){background:#285d67}.button-secondary{color:var(--deep);background:#fff6e5}.button-large{min-height:54px;min-width:180px}
+.explore-screen{color:#f9f5e9}.explore-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 5px}.explore-heading h2{margin:0;color:#fff8e9;font-size:clamp(1.35rem,5vw,1.9rem);letter-spacing:-.03em}.counter{flex:none;color:#183e47;background:#e9c67d;border-radius:3px;padding:4px 8px;font-size:.76rem;font-weight:800}.section-lead{margin:0 0 9px;max-width:64ch;color:#edf1e8;font-size:.91rem;line-height:1.35}.classroom{position:relative;width:100%;aspect-ratio:480/360;overflow:hidden;background:#d1e4d7;border:3px solid #e8ce94;box-shadow:4px 4px 0 #0e2e37}.classroom img{display:block;width:100%;height:100%;image-rendering:pixelated}.scene-point{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:52px;min-height:52px;padding:0;border:0;background:transparent;color:#183e47;font-size:.68rem;font-weight:850;line-height:1}.point-dot{display:grid;place-items:center;width:31px;height:31px;border:3px solid #173f47;background:#fff5d8;box-shadow:2px 2px 0 #8f664f;font-size:1.1rem}.point-label{margin-top:2px;padding:2px 4px;border:1px solid #173f47;background:#fff5d8}.scene-point:hover .point-dot,.scene-point:focus-visible .point-dot{background:var(--gold)}.scene-point.visited .point-dot{background:#add5b7}.point-caio{left:19%;top:82%}.point-lia{left:51%;top:80%}.point-rafa{left:81%;top:82%}.point-cartaz{left:80%;top:22%}
+.clue-controls{margin-top:11px}.list-toggle{min-height:44px;padding:7px 10px;color:#fff6df;border:1px solid #9bbcb2;border-radius:3px;background:#24535a;font-size:.88rem;font-weight:700}.list-toggle span{margin-left:9px}.clue-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:7px;padding:9px;border:1px solid #88aaa0;background:#234f57}.clue-list-button{min-height:44px;padding:8px 10px;border:1px solid #b7c7b8;border-radius:3px;background:#fffaf0;color:var(--deep);text-align:left;font-size:.88rem;font-weight:700}.clue-list-button.visited{background:#d7ead5}.explore-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0}.explore-footer p{margin:0;color:#e6ece3;font-size:.82rem}.explore-footer .button{flex:none}
+.clue-detail{position:fixed;z-index:5;left:50%;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;width:min(100%,800px);max-height:min(55dvh,420px);padding:12px max(14px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));border:3px solid #d9b47b;border-bottom:0;border-radius:10px 10px 0 0;background:#fffaf0;color:var(--ink);box-shadow:0 -10px 35px #092d36a8}.detail-top{display:flex;align-items:center;gap:8px;flex:none}.detail-top h3{margin:0;min-width:0;flex:1;font-size:clamp(16px,1rem,22px);line-height:1.2}.line-counter{color:#587073;font-size:clamp(13px,.8rem,16px);white-space:nowrap}.text-button{min-width:78px;min-height:44px;padding:7px;white-space:nowrap;border:0;border-radius:3px;background:#e7eee7;color:var(--deep);font-size:clamp(14px,.88rem,18px);font-weight:800}.dialogue{overflow:auto;min-height:0;flex:1;overscroll-behavior:contain;margin:10px 0;padding:0 3px 3px 0}.dialogue-line{display:grid;gap:6px;margin:0;padding:9px 12px;border-left:4px solid #72a9a0;background:#edf4e9;font-size:1rem;line-height:1.42}.dialogue-line strong{color:#285c65;font-size:.83rem}.dialogue-actions{display:flex;justify-content:flex-end;flex:none}.dialogue-actions .button{min-width:154px}
+.content-screen{max-width:670px;margin-left:auto;margin-right:auto}.step-label{margin-bottom:9px;color:#eacb8c;font-size:.7rem;font-weight:800;letter-spacing:.12em}.paper-card{padding:clamp(20px,5vw,36px);border:3px solid #e2ca9b;background:var(--paper);box-shadow:5px 5px 0 #0e2d36}.paper-card h2{margin:0 0 16px;font-size:clamp(1.8rem,6vw,2.5rem);letter-spacing:-.04em}.paper-card>p{max-width:55ch}.choice-list{display:grid;gap:10px;margin-top:20px}.choice-button{position:relative;width:100%;min-height:58px;padding:13px 43px 13px 14px;border:2px solid #abc4ba;border-radius:3px;background:#fff;color:var(--ink);text-align:left;font-weight:650;line-height:1.4}.choice-button:after{content:"→";position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--teal);font-size:1.3rem}.choice-button:hover{background:#e9f1e7;border-color:var(--deep)}.action-button strong,.action-button span{display:block}.action-button span{margin-top:2px;color:#4b6566;font-size:.92rem;font-weight:400}.response-block{margin:21px 0;padding:13px;border-left:4px solid #d49a65;background:#f6eddb}.response-block p{margin:0}.response-block span{display:none}.button-row{display:flex;flex-wrap:wrap;gap:10px}.reflection-question{font-size:1.16rem;font-weight:800;color:#9b5a43}.academic-note{margin:20px 0;padding:13px;border-left:4px solid #76a498;background:#e7eee7}.academic-note p{margin:0;font-size:.92rem}
+@media(max-width:600px){.start-screen{grid-template-columns:1fr}.hero-art{min-height:142px}.start-content{padding:18px}.start-content h1{font-size:clamp(2.7rem,12vw,4rem)}.subtitle{margin-bottom:16px}.explore-footer{align-items:stretch;flex-direction:column;gap:8px}.explore-footer .button{width:100%}.button-row .button{width:100%}}
+@media(max-width:370px){.header-tag{font-size:.62rem}.point-dot{width:27px;height:27px}.scene-point{min-width:44px;min-height:44px;font-size:.63rem}.clue-detail{max-height:62dvh}.clue-list{grid-template-columns:1fr}}
+@media(max-height:650px){.clue-detail{max-height:65dvh}.site-footer{padding-top:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+</style>
+
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header" aria-label="Antes de Julgar">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <span>ANTES DE JULGAR</span>
+      <span class="header-tag">Prévia 2 — cena primeiro</span>
+    </header>
+
+    <div id="loading" class="loading-card" role="status" aria-live="polite">
+      <div class="loading-pixels" aria-hidden="true"><i></i><i></i><i></i></div>
+      <p id="loading-message">Preparando a sala e a história…</p>
+      <button id="retry-load" class="button button-primary" type="button" hidden onclick="location.reload()">Tentar novamente</button>
+    </div>
+
+    <main id="game" hidden>
+      <section id="screen-start" class="screen start-screen" aria-labelledby="start-title">
+        <div class="hero-art" aria-hidden="true"><span class="hero-window"></span><span class="hero-board"></span><span class="hero-desk"></span></div>
+        <div class="start-content">
+          <p class="eyebrow">UMA CENA · QUATRO PISTAS</p>
+          <h1 id="start-title" tabindex="-1">Antes de <em>Julgar</em></h1>
+          <p class="subtitle">Um trabalho para todos</p>
+          <button id="start-button" class="button button-primary button-large" type="button" disabled>Entrar na sala <span aria-hidden="true">→</span></button>
+          <p class="microcopy">Uma história fictícia, no seu ritmo e sem pontuação.</p>
+        </div>
+      </section>
+
+      <section id="screen-explore" class="screen explore-screen" aria-labelledby="explore-title" hidden>
+        <div class="explore-heading">
+          <h2 id="explore-title" tabindex="-1">Na sala</h2>
+          <span id="clue-counter" class="counter" aria-live="polite">0 de 4 pistas</span>
+        </div>
+        <p class="section-lead">O grupo está preparando um cartaz. Converse com as pessoas para entender como cada uma está participando.</p>
+
+        <div class="classroom" aria-label="Ilustração da sala com quatro pontos interativos">
+          <img id="classroom-art" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0ODAgMzYwIiB3aWR0aD0iNDgwIiBoZWlnaHQ9IjM2MCIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj4KIDxkZWZzPgogIDxwYXR0ZXJuIGlkPSJmbG9vciIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjMyIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iMzIiIGZpbGw9IiNlNWQyYWMiLz48cGF0aCBkPSJNMCAzMWg0OE00NyAwdjMyIiBzdHJva2U9IiNkMmI2OGQiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik00IDhoMTJNMjggMjBoMTAiIHN0cm9rZT0iI2VkZGJiOCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9wYXR0ZXJuPgogIDxnIGlkPSJkZXNrIj48cmVjdCB4PSI4IiB5PSIxNiIgd2lkdGg9IjExMiIgaGVpZ2h0PSI1NiIgZmlsbD0iIzg3NjM0OSIgb3BhY2l0eT0iLjM1Ii8+PHJlY3QgeD0iOCIgeT0iNiIgd2lkdGg9IjExMiIgaGVpZ2h0PSI1NSIgZmlsbD0iIzcxNTc0OCIvPjxyZWN0IHg9IjQiIHk9IjAiIHdpZHRoPSIxMTIiIGhlaWdodD0iNTAiIGZpbGw9IiNiNjgwNTYiLz48cmVjdCB4PSI4IiB5PSI0IiB3aWR0aD0iMTA0IiBoZWlnaHQ9IjM4IiBmaWxsPSIjZTFhYTcwIi8+PHJlY3QgeD0iMTIiIHk9IjgiIHdpZHRoPSI5NiIgaGVpZ2h0PSIzMCIgZmlsbD0iI2VkYmQ4MyIvPjxyZWN0IHg9IjE2IiB5PSI0OSIgd2lkdGg9IjgiIGhlaWdodD0iMjIiIGZpbGw9IiM1MDZhNmQiLz48cmVjdCB4PSI5NiIgeT0iNDkiIHdpZHRoPSI4IiBoZWlnaHQ9IjIyIiBmaWxsPSIjNTA2YTZkIi8+PHJlY3QgeD0iMjAiIHk9IjY3IiB3aWR0aD0iMTYiIGhlaWdodD0iNCIgZmlsbD0iIzM0NGY1NyIvPjxyZWN0IHg9IjkyIiB5PSI2NyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjQiIGZpbGw9IiMzNDRmNTciLz48L2c+CiAgPGcgaWQ9Im5vdGVib29rIj48cmVjdCB3aWR0aD0iMzYiIGhlaWdodD0iMjQiIGZpbGw9IiNmZmYzZDgiLz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzY0OGQ4YSIgc3Ryb2tlLXdpZHRoPSIzIi8+PHBhdGggZD0iTTE4IDJ2MjBNNCA4aDExTTIyIDhoMTBNNCAxNGgxMU0yMiAxNGgxMCIgc3Ryb2tlPSIjYjJjN2IzIiBzdHJva2Utd2lkdGg9IjIiLz48L2c+CiA8L2RlZnM+CiA8IS0tIGxpZ2h0LCB3YWxscyBhbmQgZmxvb3IgLS0+CiA8cmVjdCB3aWR0aD0iNDgwIiBoZWlnaHQ9IjM2MCIgZmlsbD0iI2RjZTlkYSIvPjxyZWN0IHdpZHRoPSI0ODAiIGhlaWdodD0iMTQ2IiBmaWxsPSIjY2JlMGQwIi8+PHBhdGggZD0iTTAgMTM2aDQ4MHYxMkgweiIgZmlsbD0iI2E5YzVhZCIvPjxwYXRoIGQ9Ik0wIDE0OGg0ODB2MjEySDB6IiBmaWxsPSJ1cmwoI2Zsb29yKSIvPjxwYXRoIGQ9Ik0wIDE0OGg0ODB2OEgweiIgZmlsbD0iI2I3OGY2YiIvPgogPHBhdGggZD0iTTI4IDEyNGwxMTQgMjQgMTg0IDIxMkgwVjIxNnoiIGZpbGw9IiNmZmYxZDEiIG9wYWNpdHk9Ii4yNCIvPjxwYXRoIGQ9Ik0xMDAgMTI0bDI4IDI0IDEwOCAyMTJoLTM2eiIgZmlsbD0iI2ZmZjhkZiIgb3BhY2l0eT0iLjIxIi8+CiA8IS0tIHdpbmRvd3MgLS0+CiA8cmVjdCB4PSIxMiIgeT0iMTYiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTEyIiBmaWxsPSIjOTFhOTlhIi8+PHJlY3QgeD0iMTYiIHk9IjEyIiB3aWR0aD0iOTYiIGhlaWdodD0iMTA4IiBmaWxsPSIjZmZmNGQ5Ii8+PHJlY3QgeD0iMjQiIHk9IjIwIiB3aWR0aD0iODAiIGhlaWdodD0iOTIiIGZpbGw9IiM5M2M4YzUiLz48cGF0aCBkPSJNMjQgOTZsMjgtMjYgMjAgMTYgMzItMjh2NTRIMjR6IiBmaWxsPSIjOWZjN2FiIi8+PHBhdGggZD0iTTI0IDEwNGwzNC0yMCAxNCAxMiAzMi0yMnYzOEgyNHoiIGZpbGw9IiM2ZGFiYTEiLz48cGF0aCBkPSJNNjAgMjB2OTJNMjQgNjRoODAiIHN0cm9rZT0iI2ZmZjNkOCIgc3Ryb2tlLXdpZHRoPSI4Ii8+PHJlY3QgeD0iMTIiIHk9IjExNiIgd2lkdGg9IjEwNCIgaGVpZ2h0PSI4IiBmaWxsPSIjZDliODhlIi8+PHJlY3QgeD0iMTA0IiB5PSIxMjAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI4IiBmaWxsPSIjYTc3ZTY0Ii8+CiA8IS0tIGJvYXJkIC0tPgogPHJlY3QgeD0iMTMyIiB5PSIyMCIgd2lkdGg9IjIwMiIgaGVpZ2h0PSIxMDgiIGZpbGw9IiM5NDcyNTAiLz48cmVjdCB4PSIxMzYiIHk9IjE2IiB3aWR0aD0iMTk0IiBoZWlnaHQ9IjEwOCIgZmlsbD0iI2M0OWE2ZCIvPjxyZWN0IHg9IjE0NCIgeT0iMjQiIHdpZHRoPSIxNzgiIGhlaWdodD0iODgiIGZpbGw9IiMzMjZmNzEiLz48cmVjdCB4PSIxNDgiIHk9IjI4IiB3aWR0aD0iMTcwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjMzU2YzZkIi8+PHBhdGggZD0iTTE2NCA0OGg5Mk0xNjQgNjBoMTMyTTE2NCA3Mmg3OCIgc3Ryb2tlPSIjZDVlOGNjIiBzdHJva2Utd2lkdGg9IjQiLz48cGF0aCBkPSJNMjcwIDkyaDMyIiBzdHJva2U9IiNlOGNmOTEiIHN0cm9rZS13aWR0aD0iNCIvPjxyZWN0IHg9IjEzOCIgeT0iMTEyIiB3aWR0aD0iMTg4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlNGJjODUiLz48cmVjdCB4PSIyODgiIHk9IjEwOCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmN2RmYmIiLz4KIDwhLS0gY2xhc3MgcG9zdGVyIC0tPgogPHJlY3QgeD0iMzU0IiB5PSIxOCIgd2lkdGg9IjExMiIgaGVpZ2h0PSIxMjAiIGZpbGw9IiNiNzgyNjUiLz48cmVjdCB4PSIzNjIiIHk9IjI2IiB3aWR0aD0iOTYiIGhlaWdodD0iMTA0IiBmaWxsPSIjZmZmMGNlIi8+PHJlY3QgeD0iMzcwIiB5PSIzNCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjEyIiBmaWxsPSIjYjY2ZTU3Ii8+PHBhdGggZD0iTTM3NiA0MGg2MiIgc3Ryb2tlPSIjZjdlM2MyIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNMzc0IDU4aDI0TTQwNiA1OGgzNk0zNzQgNzBoMjJNNDA2IDcwaDMyTTM3NCA4MmgyNk00MDYgODJoMzRNMzc0IDk0aDIyTTQwNiA5NGgzMiIgc3Ryb2tlPSIjNjQ4ZDg4IiBzdHJva2Utd2lkdGg9IjMiLz48cmVjdCB4PSI0MDQiIHk9IjEwMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjZjVkOGEzIi8+PHBhdGggZD0iTTQxMCAxMDhoMjRNNDEwIDExNGgxNiIgc3Ryb2tlPSIjYmE4ZTY4IiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSIzNjIiIHk9IjI2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZTJhNzdiIi8+PHJlY3QgeD0iNDUwIiB5PSIyNiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iI2UyYTc3YiIvPgogPCEtLSBjbGFzc3Jvb20gZGV0YWlscyBhbmQgYmFncyAtLT4KIDxyZWN0IHg9IjgiIHk9IjE2MCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI4IiBmaWxsPSIjYjc3ODU5Ii8+PHJlY3QgeD0iMTIiIHk9IjE2NCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjIwIiBmaWxsPSIjZDI5NDZlIi8+PHBhdGggZD0iTTIwIDE2MHYtMzZNMjAgMTQ4bC0xMi0xNk0yMCAxNDBsMTYtMjAiIHN0cm9rZT0iIzU0OGI2OCIgc3Ryb2tlLXdpZHRoPSI2Ii8+PHJlY3QgeD0iNCIgeT0iMTIyIiB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIGZpbGw9IiM3MGE5N2EiLz48cmVjdCB4PSIyOCIgeT0iMTE0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIGZpbGw9IiM3NWFlN2UiLz48cmVjdCB4PSIxMiIgeT0iMTEwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIGZpbGw9IiM2MTljNzAiLz4KIDxyZWN0IHg9IjE2IiB5PSIyOTIiIHdpZHRoPSIzMiIgaGVpZ2h0PSI0MiIgZmlsbD0iIzllNWQ1NSIvPjxyZWN0IHg9IjIwIiB5PSIyOTYiIHdpZHRoPSIyNCIgaGVpZ2h0PSIzMiIgZmlsbD0iI2JkNzI2MCIvPjxyZWN0IHg9IjIyIiB5PSIyODYiIHdpZHRoPSIyMCIgaGVpZ2h0PSI4IiBmaWxsPSIjNzU0YTQ5Ii8+PHJlY3QgeD0iMjgiIHk9IjMwNiIgd2lkdGg9IjgiIGhlaWdodD0iMTIiIGZpbGw9IiNmMGJiODMiLz4KIDxyZWN0IHg9IjQzMiIgeT0iMjg2IiB3aWR0aD0iMzYiIGhlaWdodD0iNDgiIGZpbGw9IiMzYjc0NzgiLz48cmVjdCB4PSI0MzYiIHk9IjI5MiIgd2lkdGg9IjI4IiBoZWlnaHQ9IjM2IiBmaWxsPSIjNTU5MDk3Ii8+PHJlY3QgeD0iNDQwIiB5PSIyODAiIHdpZHRoPSIyMCIgaGVpZ2h0PSI4IiBmaWxsPSIjMmI1NjVmIi8+PHJlY3QgeD0iNDQ2IiB5PSIzMDYiIHdpZHRoPSI4IiBoZWlnaHQ9IjEyIiBmaWxsPSIjZDljNzhjIi8+CiA8IS0tIGNoYWlycyBiZWhpbmQgc3R1ZGVudHMgLS0+CiA8cmVjdCB4PSI1NiIgeT0iMjE0IiB3aWR0aD0iODAiIGhlaWdodD0iODIiIGZpbGw9IiM2Yjg5ODciLz48cmVjdCB4PSI2MCIgeT0iMjE4IiB3aWR0aD0iNzIiIGhlaWdodD0iNjgiIGZpbGw9IiM4ZGFjOWYiLz48cmVjdCB4PSI2MyIgeT0iMjI0IiB3aWR0aD0iNjYiIGhlaWdodD0iNiIgZmlsbD0iI2E4YzZhZiIvPgogPHJlY3QgeD0iMjA2IiB5PSIxOTYiIHdpZHRoPSI4MiIgaGVpZ2h0PSI4MiIgZmlsbD0iIzY1ODc4MCIvPjxyZWN0IHg9IjIxMCIgeT0iMjAwIiB3aWR0aD0iNzQiIGhlaWdodD0iNzAiIGZpbGw9IiM4M2FiOWEiLz48cmVjdCB4PSIyMTMiIHk9IjIwNiIgd2lkdGg9IjY4IiBoZWlnaHQ9IjYiIGZpbGw9IiNhYmQwYWQiLz4KIDxyZWN0IHg9IjMzNCIgeT0iMjEyIiB3aWR0aD0iODAiIGhlaWdodD0iODIiIGZpbGw9IiM2NDdlN2UiLz48cmVjdCB4PSIzMzgiIHk9IjIxNiIgd2lkdGg9IjcyIiBoZWlnaHQ9IjcwIiBmaWxsPSIjODZhNDljIi8+PHJlY3QgeD0iMzQxIiB5PSIyMjIiIHdpZHRoPSI2NiIgaGVpZ2h0PSI2IiBmaWxsPSIjYTZjMmFhIi8+CiA8IS0tIENhaW86IGRlbmltIHNoaXJ0LCBzdHJhaWdodCBmcmluZ2UsIHNpdHRpbmcgYSBsaXR0bGUgYXNpZGUgLS0+CiA8cmVjdCB4PSI4OCIgeT0iMTgyIiB3aWR0aD0iNDQiIGhlaWdodD0iMTIiIGZpbGw9IiMyZDQxNDkiLz48cmVjdCB4PSI4MCIgeT0iMTkwIiB3aWR0aD0iNTYiIGhlaWdodD0iMjAiIGZpbGw9IiMyZDQxNDkiLz48cmVjdCB4PSI4NCIgeT0iMjA2IiB3aWR0aD0iNDgiIGhlaWdodD0iMzIiIGZpbGw9IiM5ZTY1NGYiLz48cmVjdCB4PSI4OCIgeT0iMjEwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjYiIGZpbGw9IiNiOTdiNWQiLz48cmVjdCB4PSI4NCIgeT0iMjA4IiB3aWR0aD0iMTIiIGhlaWdodD0iMTAiIGZpbGw9IiMyOTNmNDciLz48cmVjdCB4PSIxMjQiIHk9IjIwOCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjEwIiBmaWxsPSIjMjkzZjQ3Ii8+PHJlY3QgeD0iOTYiIHk9IjIyMiIgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iIzMwNDQ0YSIvPjxyZWN0IHg9IjExNiIgeT0iMjIyIiB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMzA0NDRhIi8+PHJlY3QgeD0iMTA0IiB5PSIyMzAiIHdpZHRoPSIxMiIgaGVpZ2h0PSIzIiBmaWxsPSIjODc0ZjQ4Ii8+PHJlY3QgeD0iOTgiIHk9IjIzOCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjgiIGZpbGw9IiNhOTZlNTUiLz4KIDxyZWN0IHg9Ijc2IiB5PSIyNDYiIHdpZHRoPSI2NCIgaGVpZ2h0PSIzOCIgZmlsbD0iIzQ0NmQ3ZCIvPjxyZWN0IHg9Ijg4IiB5PSIyNDgiIHdpZHRoPSI0MCIgaGVpZ2h0PSIzMiIgZmlsbD0iIzUxN2Y4ZCIvPjxyZWN0IHg9IjEwNCIgeT0iMjQ4IiB3aWR0aD0iOCIgaGVpZ2h0PSIyNCIgZmlsbD0iI2U1YjQ3YiIvPjxyZWN0IHg9IjY4IiB5PSIyNTAiIHdpZHRoPSIxMiIgaGVpZ2h0PSIzMCIgZmlsbD0iI2FkNzM1NiIvPjxyZWN0IHg9IjEzNiIgeT0iMjUwIiB3aWR0aD0iMTIiIGhlaWdodD0iMjQiIGZpbGw9IiNhZDczNTYiLz48cmVjdCB4PSI4NCIgeT0iMjgwIiB3aWR0aD0iMTYiIGhlaWdodD0iMjAiIGZpbGw9IiM0NjVkNmIiLz48cmVjdCB4PSIxMTYiIHk9IjI4MCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjIwIiBmaWxsPSIjNDY1ZDZiIi8+CiA8IS0tIExpYTogY3VybHMsIGdyZWVuIG92ZXJzaGlydCwgbGVhbmluZyB0b3dhcmQgdGhlIHdvcmsgLS0+CiA8cmVjdCB4PSIyMjAiIHk9IjE2NiIgd2lkdGg9IjUyIiBoZWlnaHQ9IjEyIiBmaWxsPSIjNDIzYjQ4Ii8+PHJlY3QgeD0iMjEyIiB5PSIxNzQiIHdpZHRoPSI2OCIgaGVpZ2h0PSIxNiIgZmlsbD0iIzQyM2I0OCIvPjxyZWN0IHg9IjIxNiIgeT0iMTkwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjQiIGZpbGw9IiM0MjNiNDgiLz48cmVjdCB4PSIyMjQiIHk9IjE5MCIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjQ0IiBmaWxsPSIjYWQ3OTVkIi8+PHJlY3QgeD0iMjI4IiB5PSIxOTYiIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNCIgZmlsbD0iI2M0OGE2NyIvPjxyZWN0IHg9IjIyMCIgeT0iMTkwIiB3aWR0aD0iMTIiIGhlaWdodD0iMjIiIGZpbGw9IiM0MjNiNDgiLz48cmVjdCB4PSIyNjQiIHk9IjE5MCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjIyIiBmaWxsPSIjNDIzYjQ4Ii8+PHJlY3QgeD0iMjM2IiB5PSIyMTQiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMzNTQ0NDgiLz48cmVjdCB4PSIyNTYiIHk9IjIxNCIgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iIzM1NDQ0OCIvPjxyZWN0IHg9IjI0NCIgeT0iMjIzIiB3aWR0aD0iMTIiIGhlaWdodD0iMyIgZmlsbD0iIzk1NWM1MCIvPjxyZWN0IHg9IjIzOCIgeT0iMjMyIiB3aWR0aD0iMjAiIGhlaWdodD0iOCIgZmlsbD0iI2FmNzk1YiIvPgogPHJlY3QgeD0iMjA4IiB5PSIyNDAiIHdpZHRoPSI3NiIgaGVpZ2h0PSI0NCIgZmlsbD0iIzQ4N2Q3MSIvPjxyZWN0IHg9IjIyMCIgeT0iMjQ0IiB3aWR0aD0iNTIiIGhlaWdodD0iMzgiIGZpbGw9IiM2NmEwOGEiLz48cmVjdCB4PSIyMDIiIHk9IjI0OCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjYmY4NjY1Ii8+PHJlY3QgeD0iMjgyIiB5PSIyNDgiIHdpZHRoPSIxMiIgaGVpZ2h0PSIzMCIgZmlsbD0iI2JmODY2NSIvPjxyZWN0IHg9IjI4NiIgeT0iMjc0IiB3aWR0aD0iMjAiIGhlaWdodD0iOCIgZmlsbD0iI2JmODY2NSIvPjxyZWN0IHg9IjIyMiIgeT0iMjgyIiB3aWR0aD0iMTYiIGhlaWdodD0iMTgiIGZpbGw9IiM1MjVmNmUiLz48cmVjdCB4PSIyNTQiIHk9IjI4MiIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE4IiBmaWxsPSIjNTI1ZjZlIi8+CiA8IS0tIFJhZmE6IHNpZGUgc3dlcHQgaGFpciwgdGVycmFjb3R0YSB0b3AsIGhhbmQgbmVhciBwb3N0ZXIgbWF0ZXJpYWxzIC0tPgogPHJlY3QgeD0iMzU2IiB5PSIxODIiIHdpZHRoPSI1MiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzRiM2QzOSIvPjxyZWN0IHg9IjM0OCIgeT0iMTkwIiB3aWR0aD0iNjQiIGhlaWdodD0iMTYiIGZpbGw9IiM0YjNkMzkiLz48cmVjdCB4PSIzNTIiIHk9IjIwNiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjMyIiBmaWxsPSIjYjk4MzVmIi8+PHJlY3QgeD0iMzU2IiB5PSIyMTAiIHdpZHRoPSI0OCIgaGVpZ2h0PSIyOCIgZmlsbD0iI2QzOWE3MCIvPjxyZWN0IHg9IjM0OCIgeT0iMjA2IiB3aWR0aD0iMTIiIGhlaWdodD0iMTYiIGZpbGw9IiM0YjNkMzkiLz48cmVjdCB4PSIzNjgiIHk9IjIyMiIgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iIzM4NDY0YiIvPjxyZWN0IHg9IjM5MiIgeT0iMjIyIiB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMzg0NjRiIi8+PHJlY3QgeD0iMzc2IiB5PSIyMzEiIHdpZHRoPSIxMiIgaGVpZ2h0PSIzIiBmaWxsPSIjOTk1ZjUwIi8+PHJlY3QgeD0iMzcwIiB5PSIyMzgiIHdpZHRoPSIyMCIgaGVpZ2h0PSI4IiBmaWxsPSIjYmI4NTYyIi8+CiA8cmVjdCB4PSIzNDAiIHk9IjI0NiIgd2lkdGg9Ijc2IiBoZWlnaHQ9IjQwIiBmaWxsPSIjYjY2NjUyIi8+PHJlY3QgeD0iMzUyIiB5PSIyNTAiIHdpZHRoPSI1MiIgaGVpZ2h0PSIzMiIgZmlsbD0iI2M5N2E1ZCIvPjxyZWN0IHg9IjMzMiIgeT0iMjUyIiB3aWR0aD0iMTIiIGhlaWdodD0iMzAiIGZpbGw9IiNjZjk1NmQiLz48cmVjdCB4PSI0MTIiIHk9IjI1MiIgd2lkdGg9IjEyIiBoZWlnaHQ9IjI4IiBmaWxsPSIjY2Y5NTZkIi8+PHJlY3QgeD0iMzQ0IiB5PSIyODIiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzU2NjQ3NCIvPjxyZWN0IHg9IjM5MiIgeT0iMjgyIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIGZpbGw9IiM1NjY0NzQiLz4KIDwhLS0gZGVza3MgaW4gZnJvbnQsIHdpdGggY29oZXJlbnQgdG9wIGFuZCBsZWdzIC0tPgogPHVzZSBocmVmPSIjZGVzayIgeD0iNDQiIHk9IjI4MCIvPjx1c2UgaHJlZj0iI2Rlc2siIHg9IjE5MCIgeT0iMjc0Ii8+PHVzZSBocmVmPSIjZGVzayIgeD0iMzIyIiB5PSIyODIiLz4KIDxyZWN0IHg9Ijc2IiB5PSIyOTIiIHdpZHRoPSI0OCIgaGVpZ2h0PSIyNiIgZmlsbD0iIzNjNjQ3MiIvPjxyZWN0IHg9IjgwIiB5PSIyOTYiIHdpZHRoPSI0MCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzUyN2M4NyIvPjxyZWN0IHg9Ijg2IiB5PSIzMDAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIzIiBmaWxsPSIjOGZiMmIyIi8+CiA8dXNlIGhyZWY9IiNub3RlYm9vayIgeD0iMjEyIiB5PSIyODYiLz48cmVjdCB4PSIyNjIiIHk9IjI4NiIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjI4IiBmaWxsPSIjZmZmMGQxIi8+PHBhdGggZD0iTTI3MCAyOTRoMjZNMjcwIDMwMmgyMiIgc3Ryb2tlPSIjODVhNmEyIiBzdHJva2Utd2lkdGg9IjMiLz48cmVjdCB4PSIyOTIiIHk9IjI4MiIgd2lkdGg9IjQiIGhlaWdodD0iMjQiIGZpbGw9IiNlOGM3NTgiLz4KIDx1c2UgaHJlZj0iI25vdGVib29rIiB4PSIzNTIiIHk9IjI5NCIvPjxyZWN0IHg9IjM5OCIgeT0iMjk0IiB3aWR0aD0iMzAiIGhlaWdodD0iMjAiIGZpbGw9IiNlYWM1N2IiLz48cGF0aCBkPSJNNDAyIDMwMGgyME00MDIgMzA2aDE2IiBzdHJva2U9IiNiOTgyNjAiIHN0cm9rZS13aWR0aD0iMyIvPgo8L3N2Zz4K" alt="" width="480" height="360">
+          <button class="scene-point point-caio" type="button" data-clue="caio" aria-label="Conversar com Caio"><span class="point-dot" aria-hidden="true">+</span><span class="point-label">Caio</span></button>
+          <button class="scene-point point-lia" type="button" data-clue="lia" aria-label="Conversar com Lia"><span class="point-dot" aria-hidden="true">+</span><span class="point-label">Lia</span></button>
+          <button class="scene-point point-rafa" type="button" data-clue="rafa" aria-label="Conversar com Rafa"><span class="point-dot" aria-hidden="true">+</span><span class="point-label">Rafa</span></button>
+          <button class="scene-point point-cartaz" type="button" data-clue="cartaz" aria-label="Observar o cartaz"><span class="point-dot" aria-hidden="true">+</span><span class="point-label">Cartaz</span></button>
+        </div>
+
+        <div class="clue-controls">
+          <button id="toggle-clue-list" class="list-toggle" type="button" aria-expanded="false" aria-controls="clue-list">Lista de pessoas e cartaz <span aria-hidden="true">▾</span></button>
+          <div id="clue-list" class="clue-list" role="group" aria-label="Pessoas e cartaz" hidden></div>
+        </div>
+
+        <section id="clue-detail" class="clue-detail" role="dialog" aria-modal="true" aria-labelledby="clue-title" hidden>
+          <div class="detail-top"><h3 id="clue-title" tabindex="-1"></h3><span id="line-counter" class="line-counter"></span><button id="close-clue" type="button" class="text-button">Fechar <span aria-hidden="true">×</span></button></div>
+          <div id="clue-dialogue" class="dialogue" aria-live="polite"></div>
+          <div class="dialogue-actions"><button id="next-line" class="button button-primary" type="button">Continuar</button></div>
+        </section>
+
+        <div class="explore-footer">
+          <p id="explore-hint" aria-live="polite">Converse com as três pessoas e observe o cartaz.</p>
+          <button id="to-actions" class="button button-primary" type="button" disabled>Escolher uma ação <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <section id="screen-actions" class="screen content-screen" aria-labelledby="actions-title" hidden>
+        <div class="step-label">DEPOIS DAS CONVERSAS</div>
+        <div class="paper-card">
+          <p class="eyebrow">DEPOIS DE OUVIR O GRUPO</p>
+          <h2 id="actions-title" tabindex="-1">O que você faria agora?</h2>
+          <p>As pistas mostram partes da situação. Qual próximo passo você experimentaria com esse grupo?</p>
+          <div id="action-options" class="choice-list" role="group" aria-label="Escolha uma ação"></div>
+        </div>
+      </section>
+
+      <section id="screen-consequence" class="screen content-screen" aria-labelledby="consequence-title" hidden>
+        <div class="step-label">O QUE PODE ACONTECER</div>
+        <div class="paper-card consequence-card">
+          <p class="eyebrow">VOCÊ EXPERIMENTOU</p>
+          <h2 id="consequence-title" tabindex="-1"></h2>
+          <p id="consequence-text"></p>
+          <div class="response-block"><span aria-hidden="true">✦</span><p id="consequence-feedback"></p></div>
+          <div class="button-row">
+            <button id="try-another" class="button button-secondary" type="button">Experimentar outra ação</button>
+            <button id="to-ending" class="button button-primary" type="button">Ir para a reflexão <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-ending" class="screen content-screen" aria-labelledby="ending-title" hidden>
+        <div class="step-label">REFLEXÃO</div>
+        <div class="paper-card ending-card">
+          <p class="eyebrow">DEPOIS DE OUVIR</p>
+          <h2 id="ending-title" tabindex="-1">E agora, o que você vê?</h2>
+          <p>Na sala, você encontrou tentativas de participar, tarefas pouco combinadas e uma conversa em que nem todos tinham espaço.</p>
+          <p class="reflection-question">Qual conversa ampliou sua compreensão do grupo?</p>
+          <p>Antes de concluir, vale observar, escutar e compreender o contexto.</p>
+          <div class="academic-note"><p>A Psicologia Escolar contribui para compreender as relações e as condições que favorecem ou dificultam a participação e a aprendizagem. Esse trabalho envolve diálogo com estudantes, educadores e a comunidade escolar.</p></div>
+          <button id="restart" class="button button-primary" type="button">Jogar novamente <span aria-hidden="true">↺</span></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">Prévia 2 — cena primeiro · Personagens fictícios</footer>
+  </div>
+<script>
+// Textos da história. A lógica da partida fica em game.js.
+window.GAME_STORY = Object.freeze({
+  clues: [
+    {
+      id: 'caio', title: 'Conversar com Caio', label: 'Caio',
+      lines: [
+        { speaker: 'Caio', text: 'Eu sugeri fazer uns desenhos pro cartaz. A conversa continuou e achei que ninguém tinha ouvido.' },
+        { speaker: 'Você', text: 'Você ainda gostaria de participar?' },
+        { speaker: 'Caio', text: 'Sim. Só queria combinar uma parte e conseguir falar sem disputar a conversa.' }
+      ],
+      note: 'Caio relata uma tentativa de participar que não encontrou espaço.'
+    },
+    {
+      id: 'lia', title: 'Conversar com Lia', label: 'Lia',
+      lines: [
+        { speaker: 'Lia', text: 'A gente dividiu as partes enquanto o Caio buscava material. Depois nem conferimos se estava bom pra todo mundo.' },
+        { speaker: 'Você', text: 'E agora?' },
+        { speaker: 'Lia', text: 'Dá pra conversar de novo. Eu nem sabia que ele queria desenhar.' }
+      ],
+      note: 'A divisão das tarefas aconteceu sem a participação de todos.'
+    },
+    {
+      id: 'rafa', title: 'Conversar com Rafa', label: 'Rafa',
+      lines: [
+        { speaker: 'Rafa', text: 'Eu queria terminar logo e acabei falando por cima. Acho que cada um entendeu uma coisa.' },
+        { speaker: 'Você', text: 'O que ajudaria?' },
+        { speaker: 'Rafa', text: 'Uma pausa pra cada um falar e combinar o que vai fazer.' }
+      ],
+      note: 'A pressa e a forma de conversar dificultaram os combinados.'
+    },
+    {
+      id: 'cartaz', title: 'Observar o cartaz', label: 'Cartaz',
+      lines: [
+        { speaker: 'Cartaz da atividade', text: 'Criem um cartaz sobre convivência. Decidam juntos como cada pessoa vai contribuir.' },
+        { speaker: 'Você observa', text: 'Há tarefas anotadas ao lado dos nomes de Lia e Rafa. Ao lado de Caio, o espaço está vazio.' }
+      ],
+      note: 'O grupo ainda precisa construir um combinado que inclua todos.'
+    }
+  ],
+  actions: [
+    {
+      id: 'pedir', title: 'Pedir que Caio participe mais', detail: 'Sem mudar os combinados do grupo.',
+      consequence: 'Caio ouve o pedido, mas continua sem saber qual espaço terá. O grupo mantém a organização que já estava dificultando a participação.',
+      feedback: 'O pedido pode chamar atenção para a situação. Que mudança concreta ajudaria Caio a participar?'
+    },
+    {
+      id: 'pausa', title: 'Fazer uma pausa e ouvir todos', detail: 'Combinar as tarefas juntos.',
+      consequence: 'Caio propõe cuidar dos desenhos, Lia quer organizar o texto e Rafa prefere a montagem. Eles conferem se todos concordam e combinam um momento para revisar juntos.',
+      feedback: 'Nesta história, escutar e rever a organização abriu espaço para participar. Em uma situação real, seria preciso acompanhar se o combinado está funcionando.'
+    },
+    {
+      id: 'professor', title: 'Pedir ajuda ao professor', detail: 'Para mediar a conversa do grupo.',
+      consequence: 'O professor pode ajudar a organizar a escuta e a revisar os combinados com o grupo, sem decidir tudo pelos estudantes.',
+      feedback: 'Buscar apoio é uma possibilidade. O importante é incluir as pessoas envolvidas na construção da solução.'
+    }
+  ]
+});
+
+</script>
+<script>
+(function () {
+  'use strict';
+
+  const story = window.GAME_STORY;
+  if (!story || story.clues.length !== 4 || story.actions.length !== 3) {
+    throw new Error('Roteiro indisponível ou incompleto.');
+  }
+
+  const $ = (selector) => document.querySelector(selector);
+  const screens = [...document.querySelectorAll('.screen')];
+  const state = { completed: new Set(), positions: new Map(), activeClue: null, line: 0 };
+  let lastClueTrigger = null;
+
+  function makeButton(className, label, onClick) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = className;
+    button.textContent = label;
+    button.addEventListener('click', onClick);
+    return button;
+  }
+
+  function showScreen(id) {
+    closeClue(false);
+    for (const screen of screens) screen.hidden = screen.id !== id;
+    window.scrollTo(0, 0);
+    const heading = document.querySelector(`#${id} h1, #${id} h2`);
+    if (heading) heading.focus({ preventScroll: true });
+  }
+
+  function renderClueList() {
+    const container = $('#clue-list');
+    container.replaceChildren();
+    for (const clue of story.clues) {
+      const button = makeButton('clue-list-button', clue.title, (event) => openClue(clue.id, event.currentTarget));
+      button.dataset.clue = clue.id;
+      container.append(button);
+    }
+    updateClueProgress();
+  }
+
+  function updateClueProgress() {
+    const count = state.completed.size;
+    $('#clue-counter').textContent = `${count} de 4 pistas`;
+    $('#to-actions').disabled = count !== story.clues.length;
+    $('#explore-hint').textContent = count === story.clues.length
+      ? 'Você conheceu os quatro pontos. Escolha uma ação para o grupo.'
+      : 'Converse com as três pessoas e observe o cartaz.';
+    for (const button of document.querySelectorAll('[data-clue]')) {
+      const clue = story.clues.find((item) => item.id === button.dataset.clue);
+      const completed = state.completed.has(clue.id);
+      button.classList.toggle('visited', completed);
+      button.setAttribute('aria-label', `${clue.title}, ${completed ? 'concluído' : 'a explorar'}`);
+      if (button.classList.contains('clue-list-button')) {
+        button.textContent = `${clue.title}${completed ? ' · concluído' : ''}`;
+      } else {
+        button.querySelector('.point-dot').textContent = completed ? '✓' : '+';
+      }
+    }
+  }
+
+  function renderLine() {
+    const clue = story.clues.find((item) => item.id === state.activeClue);
+    const line = clue.lines[state.line];
+    const entry = document.createElement('p');
+    entry.className = 'dialogue-line';
+    const speaker = document.createElement('strong');
+    speaker.textContent = line.speaker;
+    const quote = document.createElement('span');
+    quote.textContent = line.text;
+    entry.append(speaker, quote);
+    $('#clue-dialogue').replaceChildren(entry);
+    $('#line-counter').textContent = `${state.line + 1} / ${clue.lines.length}`;
+    $('#next-line').textContent = state.line === clue.lines.length - 1 ? 'Concluir conversa' : 'Continuar';
+  }
+
+  function openClue(id, trigger) {
+    const clue = story.clues.find((item) => item.id === id);
+    if (!clue) return;
+    lastClueTrigger = trigger;
+    state.activeClue = id;
+    state.line = state.completed.has(id) ? 0 : (state.positions.get(id) || 0);
+    $('#clue-title').textContent = clue.title;
+    renderLine();
+    $('#clue-detail').hidden = false;
+    $('#clue-title').focus({ preventScroll: true });
+  }
+
+  function nextLine() {
+    const clue = story.clues.find((item) => item.id === state.activeClue);
+    if (!clue) return;
+    if (state.line < clue.lines.length - 1) {
+      state.line++;
+      state.positions.set(clue.id, state.line);
+      renderLine();
+    } else {
+      state.completed.add(clue.id);
+      state.positions.delete(clue.id);
+      updateClueProgress();
+      closeClue();
+    }
+  }
+
+  function closeClue(returnFocus = true) {
+    $('#clue-detail').hidden = true;
+    state.activeClue = null;
+    if (returnFocus && lastClueTrigger && !lastClueTrigger.closest('[hidden]')) lastClueTrigger.focus();
+    lastClueTrigger = null;
+  }
+
+  function renderActions() {
+    const container = $('#action-options');
+    container.replaceChildren();
+    for (const action of story.actions) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'choice-button action-button';
+      const title = document.createElement('strong');
+      title.textContent = action.title;
+      const detail = document.createElement('span');
+      detail.textContent = action.detail;
+      button.append(title, detail);
+      button.addEventListener('click', () => {
+        $('#consequence-title').textContent = action.title;
+        $('#consequence-text').textContent = action.consequence;
+        $('#consequence-feedback').textContent = action.feedback;
+        showScreen('screen-consequence');
+      });
+      container.append(button);
+    }
+  }
+
+  function restart() {
+    state.completed.clear();
+    state.positions.clear();
+    state.activeClue = null;
+    lastClueTrigger = null;
+    renderClueList();
+    $('#clue-list').hidden = true;
+    $('#toggle-clue-list').setAttribute('aria-expanded', 'false');
+    showScreen('screen-start');
+  }
+
+  function init() {
+    renderClueList();
+    renderActions();
+    document.querySelectorAll('.scene-point').forEach((button) => {
+      button.addEventListener('click', (event) => openClue(button.dataset.clue, event.currentTarget));
+    });
+    $('#start-button').addEventListener('click', () => showScreen('screen-explore'));
+    $('#toggle-clue-list').addEventListener('click', () => {
+      const list = $('#clue-list');
+      list.hidden = !list.hidden;
+      $('#toggle-clue-list').setAttribute('aria-expanded', String(!list.hidden));
+    });
+    $('#close-clue').addEventListener('click', () => closeClue());
+    $('#next-line').addEventListener('click', nextLine);
+    $('#clue-detail').addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { closeClue(); return; }
+      if (event.key !== 'Tab') return;
+      const controls = [$('#close-clue'), $('#next-line')];
+      const target = document.activeElement;
+      if (event.shiftKey && (target === controls[0] || target === $('#clue-title'))) {
+        event.preventDefault(); controls[1].focus();
+      } else if (!event.shiftKey && target === controls[1]) {
+        event.preventDefault(); controls[0].focus();
+      }
+    });
+    $('#to-actions').addEventListener('click', () => { if (state.completed.size === story.clues.length) showScreen('screen-actions'); });
+    $('#try-another').addEventListener('click', () => showScreen('screen-actions'));
+    $('#to-ending').addEventListener('click', () => showScreen('screen-ending'));
+    $('#restart').addEventListener('click', restart);
+    window.gameBootstrap.initialized();
+  }
+
+  init();
+}());
+
+</script>
+</body>
+</html>
